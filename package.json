@@ -13,13 +13,21 @@
     "start-dev": "nodemon server/index.js",
     "start-prod": "node server/index.js",
     "seed-db": "node db/seed.js",
-    "test": "jest --verbose"
+    "test": "jest --verbose",
+    "mongo:seeditems": "mongoimport --db sdc --collection items --type csv --file items.csv --headerline",
+    "mongo:seedphotos": "mongoimport --db sdc --collection photos --type csv --file photos.csv --headerline",
+    "mongo:seedstyles": "mongoimport --db sdc --collection styles --type csv --file styles.csv --headerline",
+    "mongo:makedata": "node mongoDb/makeData.js"
+
   },
   "dependencies": {
     "axios": "^0.21.1",
     "bluebird": "^3.7.2",
     "cors": "^2.8.5",
+    "csv-writer": "^1.6.0",
     "express": "^4.17.1",
+    "mongoose": "^5.11.15",
+    "mongoose-seed-csv": "0.0.4",
     "mysql": "^2.18.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
