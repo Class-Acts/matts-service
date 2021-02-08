@@ -6,7 +6,7 @@ import Zoom from './Zoom.jsx';
 import Carousel from './Carousel.jsx';
 
 const ImagePreview = (props) => {
-  let current_photos = props.photos.filter(photo => photo.style_id === props.current_style.id);
+  let current_photos = props.photos.filter(photo => photo.style_id === props.current_style._id);
   return (
     <div className={styles.image_preview}>
       <Zoom photo={current_photos[props.c_i]} zoomIn={props.zoomIn} zoomOut={props.zoomOut}/>

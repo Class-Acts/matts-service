@@ -6,7 +6,9 @@ import Size from './Size.jsx';
 const SizeList = (props) => {
 
   let all_sizes = ['5', '6', '7', '8', '9', '10', '11', '12', '13', '14'];
-  let available_sizes = props.sizes.filter(size => size.style_id === props.current_style.id).map(size => size.size);
+  let available_sizes = props.sizes.filter(size => size.style_id === props.current_style._id).map(size => size.size).flat();
+  console.log('available', available_sizes)
+  console.log('all', all_sizes)
 
   return (
     <div className={styles.size_container}>

@@ -112,14 +112,11 @@ const writeData =  async () => {
   console.log('inserting')
   await photoWriter.writeRecords(photosArr)
     .then(() => {
-        photosArr = []
         styleWriter.writeRecords(stylesArr)
           .then(() => {
-              stylesArr = []
               itemWriter.writeRecords(itemsArr)
                 .then(() => {
                     console.log('...Done');
-                    itemsArr = []
                 })
           })
     })
@@ -132,8 +129,8 @@ const seedDb = async () => {
     await buildCollection();
     await writeData();
     itemsArr = [];
-    photosArr = [];
     stylesArr = [];
+    photosArr = [];
   }
 };
 

@@ -18,7 +18,6 @@
     "mongo:seedphotos": "mongoimport --db sdc --collection photos --type csv --file photos.csv --headerline",
     "mongo:seedstyles": "mongoimport --db sdc --collection styles --type csv --file styles.csv --headerline",
     "mongo:makedata": "node mongoDb/makeData.js"
-
   },
   "dependencies": {
     "axios": "^0.21.1",
