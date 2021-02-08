@@ -1,3 +1,5 @@
+//require('newrelic');
+//import 'newrelic'
 import React from 'react';
 import axios from 'axios';
 
