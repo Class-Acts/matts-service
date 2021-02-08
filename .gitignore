@@ -26,3 +26,8 @@ dist/
 
 # IDE Specific
 .vscode
+
+# data
+items.csv
+photos.csv
+styles.csv

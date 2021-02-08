@@ -53,12 +53,13 @@ class App extends React.Component {
   }
 
   fetchInfo(item_id) {
-    return axios.get(`http://localhost:6969/api/items/${item_id}/info`)
+    return axios.get(`http://localhost:8080/api/items/${item_id}/info`)
       .then(response => {
+        console.log(response)
         let item = response.data[0];
         this.setState({
           info: {
-            id: item.id,
+            id: item._id,
             name: item.name,
             brand: item.brand,
             avg_rating: item.avg_rating,
@@ -69,7 +70,7 @@ class App extends React.Component {
   }
 
   fetchStyles(item_id) {
-    return axios.get(`http://localhost:6969/api/items/${item_id}/styles`)
+    return axios.get(`http://localhost:8080/api/items/${item_id}/styles`)
       .then(response => {
         let styles = response.data;
         this.setState({
@@ -80,7 +81,7 @@ class App extends React.Component {
   }
 
   fetchSizes(item_id) {
-    return axios.get(`http://localhost:6969/api/items/${item_id}/sizes`)
+    return axios.get(`http://localhost:8080/api/items/${item_id}/sizes`)
       .then(response => {
         let sizes = response.data;
         this.setState({
@@ -90,7 +91,7 @@ class App extends React.Component {
   }
 
   fetchPhotos(item_id) {
-    return axios.get(`http://localhost:6969/api/items/${item_id}/photos`)
+    return axios.get(`http://localhost:8080/api/items/${item_id}/photos`)
       .then(response => {
         let photos = response.data;
         this.setState({
@@ -100,7 +101,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    let item = this.randInt(1, 100);
+    let item = this.randInt(10000, 10000000);
     let state = this.state;
     this.fetchInfo(item)
       .then(() => this.fetchStyles(item))
