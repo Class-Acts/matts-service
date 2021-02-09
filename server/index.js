@@ -44,7 +44,7 @@ app.get('/api/items/:item_id/photos', async (req, res) => {
 })
 
 
-const PORT = process.env.PORT || 443;
+const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => console.log(`express is listening on port ${PORT}`));
 

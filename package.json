@@ -26,6 +26,7 @@
     "csv-writer": "^1.6.0",
     "express": "^4.17.1",
     "install": "^0.13.0",
+    "k6": "0.0.0",
     "mongoose": "^5.11.15",
     "mongoose-seed-csv": "0.0.4",
     "mysql": "^2.18.1",

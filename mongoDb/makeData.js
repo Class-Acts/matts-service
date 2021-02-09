@@ -108,29 +108,30 @@ const buildCollection = () => {
 };
 
 
-const writeData =  async () => {
+const writeData = async () => {
   console.log('inserting')
-  await photoWriter.writeRecords(photosArr)
+  photoWriter.writeRecords(photosArr)
     .then(() => {
-        styleWriter.writeRecords(stylesArr)
-          .then(() => {
-              itemWriter.writeRecords(itemsArr)
-                .then(() => {
-                    console.log('...Done');
-                })
-          })
+      photosArr = [];
+      return itemWriter.writeRecords(itemsArr)
+    })
+    .then(() => {
+      itemsArr = [];
+      return styleWriter.writeRecords(stylesArr)
+    })
+    .then(() => {
+      stylesArr = [];
+      console.log('done')
     })
     .catch(e => e.message)
 
-};
+}
+
 
 const seedDb = async () => {
   for (var i = 0; i < 1000; i++) {
     await buildCollection();
     await writeData();
-    itemsArr = [];
-    stylesArr = [];
-    photosArr = [];
   }
 };
 
