@@ -55,7 +55,7 @@ class App extends React.Component {
   }
 
   fetchInfo(item_id) {
-    return axios.get(`13.56.237.124:443/api/items/${item_id}/info`)
+    return axios.get(`http://ec2-54-151-119-47.us-west-1.compute.amazonaws.com:8080/api/items/${item_id}/info`)
       .then(response => {
         console.log(response)
         let item = response.data[0];
@@ -72,7 +72,7 @@ class App extends React.Component {
   }
 
   fetchStyles(item_id) {
-    return axios.get(`13.56.237.124:443/api/items/${item_id}/styles`)
+    return axios.get(`http://ec2-54-151-119-47.us-west-1.compute.amazonaws.com:8080/api/items/${item_id}/styles`)
       .then(response => {
         let styles = response.data;
         this.setState({
@@ -83,7 +83,7 @@ class App extends React.Component {
   }
 
   fetchSizes(item_id) {
-    return axios.get(`13.56.237.124:443/api/items/${item_id}/sizes`)
+    return axios.get(`http://ec2-54-151-119-47.us-west-1.compute.amazonaws.com:8080/api/items/${item_id}/sizes`)
       .then(response => {
         let sizes = response.data;
         this.setState({
@@ -93,7 +93,7 @@ class App extends React.Component {
   }
 
   fetchPhotos(item_id) {
-    return axios.get(`13.56.237.124:443/api/items/${item_id}/photos`)
+    return axios.get(`http://ec2-54-151-119-47.us-west-1.compute.amazonaws.com:8080/api/items/${item_id}/photos`)
       .then(response => {
         let photos = response.data;
         this.setState({
