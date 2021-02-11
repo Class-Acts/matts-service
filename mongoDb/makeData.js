@@ -2,7 +2,8 @@ const db  = require('./index.js');
 const faker = require('faker');
 const photoBank = require('./data/photos.json');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
-
+const fs = require('fs');
+const { exec } = require("child_process");
 
 
 const itemWriter = createCsvWriter({
@@ -110,9 +111,10 @@ const buildCollection = () => {
 
 const writeData = async () => {
   console.log('inserting')
-  photoWriter.writeRecords(photosArr)
+  await photoWriter.writeRecords(photosArr)
     .then(() => {
       photosArr = [];
+      console.log('photos deleted')
       return itemWriter.writeRecords(itemsArr)
     })
     .then(() => {
@@ -132,6 +134,20 @@ const seedDb = async () => {
   for (var i = 0; i < 1000; i++) {
     await buildCollection();
     await writeData();
+    await exec("mongoimport --db sdc --collection items --type csv --file items.csv --headerline", (error, stdout, stderr) => {
+      if (error) {
+          console.log(`error: ${error.message}`);
+          return;
+      }
+      if (stderr) {
+          console.log(`stderr: ${stderr}`);
+          return;
+      }
+      console.log(`stdout: ${stdout}`);
+    });
+    await writeData();
+
+
   }
 };
 
