@@ -168,7 +168,9 @@ const seedDb = async () => {
       console.log(`stdout: ${stdout}`);
     });
 
-    await writeData();
+    await fs.unlink('items.csv');
+    await fs.unlink('photos.csv');
+    await fs.unlink('styles.csv')
 
 
   }
