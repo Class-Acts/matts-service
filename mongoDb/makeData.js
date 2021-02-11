@@ -168,9 +168,24 @@ const seedDb = async () => {
       console.log(`stdout: ${stdout}`);
     });
 
-    await fs.unlink('items.csv');
-    await fs.unlink('photos.csv');
-    await fs.unlink('styles.csv')
+    await fs.unlink('items.csv', (err) => {
+      if (err) {
+        console.error(err)
+        return
+      }
+    });
+    await fs.unlink('photos.csv', (err) => {
+      if (err) {
+        console.error(err)
+        return
+      }
+    });
+    await fs.unlink('styles.csv', (err) => {
+      if (err) {
+        console.error(err)
+        return
+      }
+    });
 
 
   }
