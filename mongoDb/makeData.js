@@ -145,6 +145,29 @@ const seedDb = async () => {
       }
       console.log(`stdout: ${stdout}`);
     });
+    await exec("mongoimport --db sdc --collection photos --type csv --file photos.csv --headerline", (error, stdout, stderr) => {
+      if (error) {
+          console.log(`error: ${error.message}`);
+          return;
+      }
+      if (stderr) {
+          console.log(`stderr: ${stderr}`);
+          return;
+      }
+      console.log(`stdout: ${stdout}`);
+    });
+    await exec("mongoimport --db sdc --collection styles --type csv --file styles.csv --headerline", (error, stdout, stderr) => {
+      if (error) {
+          console.log(`error: ${error.message}`);
+          return;
+      }
+      if (stderr) {
+          console.log(`stderr: ${stderr}`);
+          return;
+      }
+      console.log(`stdout: ${stdout}`);
+    });
+
     await writeData();
 
 
