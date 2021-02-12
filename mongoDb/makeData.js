@@ -110,25 +110,16 @@ const buildCollection = () => {
 };
 
 
-const writeData = async () => {
+const writeData = new Promise(function(resolve, reject) {
   console.log('inserting')
-  await photoWriter.writeRecords(photosArr)
-    .then(() => {
-      photosArr = [];
-      console.log('photos deleted')
-      return itemWriter.writeRecords(itemsArr)
-    })
-    .then(() => {
-      itemsArr = [];
-      return styleWriter.writeRecords(stylesArr)
-    })
-    .then(() => {
-      stylesArr = [];
-      console.log('done')
-    })
-    .catch(e => e.message)
+  photoWriter.writeRecords(photosArr);
+  itemWriter.writeRecords(itemsArr);
+  styleWriter.writeRecords(stylesArr);
+  resolve();
+})
 
-}
+
+
 
 
 const seedDb = async () => {
@@ -137,10 +128,15 @@ const seedDb = async () => {
   let stylesCmd = "mongoimport --db sdc --collection styles --type csv --file styles.csv --headerline";
   for (var i = 0; i < 1000; i++) {
     await buildCollection();
-    await writeData();
-    exec(itemsCmd, {maxBuffer: 1024 * 1024 * 10})
-    .then(() => exec(stylesCmd), {maxBuffer: 1024 * 1024 * 10})
-    .then(() => exec(photosCmd), {maxBuffer: 1024 * 1024 * 10})
+    writeData()
+      .then(() => {
+        exec(itemsCmd, {maxBuffer: 1024 * 1024 * 10})
+        exec(stylesCmd, {maxBuffer: 1024 * 1024 * 10})
+        exec(photosCmd, {maxBuffer: 1024 * 1024 * 10})
+        return;
+      })
+      
+
     .then(() => fs.unlinkAsync('styles.csv'))
     .then(() => fs.unlinkAsync('items.csv'))
     .then(() => fs.unlinkAsync('photos.csv'))
