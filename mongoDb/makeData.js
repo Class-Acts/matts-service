@@ -127,10 +127,8 @@ const writeData = async () => {
       console.log('done')
     })
     .catch(e => e.message)
-})
 
-
-
+}
 
 
 const seedDb = async () => {
