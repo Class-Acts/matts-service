@@ -1,9 +1,10 @@
 const db  = require('./index.js');
 const faker = require('faker');
+const Promise = requre('bluebird');
 const photoBank = require('./data/photos.json');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
-const fs = require('fs');
-const { exec } = require("child_process");
+const fs = Promise.promisifyAll(require('fs'));
+const { exec } = Promise.promisifyAll(require("child_process"));
 
 
 const itemWriter = createCsvWriter({
@@ -131,63 +132,18 @@ const writeData = async () => {
 
 
 const seedDb = async () => {
+  let photosCmd = "mongoimport --db sdc --collection photos --type csv --file photos.csv --headerline";
+  let itemsCmd = "mongoimport --db sdc --collection items --type csv --file items.csv --headerline";
+  let stylesCmd = "mongoimport --db sdc --collection styles --type csv --file styles.csv --headerline";
   for (var i = 0; i < 1000; i++) {
     await buildCollection();
     await writeData();
-    await exec("mongoimport --db sdc --collection items --type csv --file items.csv --headerline", (error, stdout, stderr) => {
-      if (error) {
-          console.log(`error: ${error.message}`);
-          return;
-      }
-      if (stderr) {
-          console.log(`stderr: ${stderr}`);
-          return;
-      }
-      console.log(`stdout: ${stdout}`);
-    });
-    await exec("mongoimport --db sdc --collection photos --type csv --file photos.csv --headerline", (error, stdout, stderr) => {
-      if (error) {
-          console.log(`error: ${error.message}`);
-          return;
-      }
-      if (stderr) {
-          console.log(`stderr: ${stderr}`);
-          return;
-      }
-      console.log(`stdout: ${stdout}`);
-    });
-    await exec("mongoimport --db sdc --collection styles --type csv --file styles.csv --headerline", (error, stdout, stderr) => {
-      if (error) {
-          console.log(`error: ${error.message}`);
-          return;
-      }
-      if (stderr) {
-          console.log(`stderr: ${stderr}`);
-          return;
-      }
-      console.log(`stdout: ${stdout}`);
-    });
-
-    await fs.unlink('items.csv', (err) => {
-      if (err) {
-        console.error(err)
-        return
-      }
-    });
-    await fs.unlink('photos.csv', (err) => {
-      if (err) {
-        console.error(err)
-        return
-      }
-    });
-    await fs.unlink('styles.csv', (err) => {
-      if (err) {
-        console.error(err)
-        return
-      }
-    });
-
-
+    exec(itemsCmd)
+    .then(() => exec(stylesCmd))
+    .then(() => exec(photosCmd))
+    .then(() => fs.unlinkAsync('styles.csv'))
+    .then(() => fs.unlinkAsync('styles.csv'))
+    .then(() => fs.unlinkAsync('photos.csv'))
   }
 };
 
