@@ -4,7 +4,7 @@ const Promise = require('bluebird');
 const photoBank = require('./data/photos.json');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const fs = Promise.promisifyAll(require('fs'));
-const { exec } = Promise.promisifyAll(require("child_process"));
+const exec = Promise.promisify(require("child_process").exec);
 
 
 const itemWriter = createCsvWriter({
