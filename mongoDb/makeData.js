@@ -1,6 +1,6 @@
 const db  = require('./index.js');
 const faker = require('faker');
-const Promise = requre('bluebird');
+const Promise = require('bluebird');
 const photoBank = require('./data/photos.json');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const fs = Promise.promisifyAll(require('fs'));
