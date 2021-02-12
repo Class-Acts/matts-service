@@ -138,7 +138,7 @@ const seedDb = async () => {
   for (var i = 0; i < 1000; i++) {
     await buildCollection();
     await writeData();
-    exec(itemsCmd, {maxBuffer: 1024 * 1024 * 10})
+    await exec(itemsCmd, {maxBuffer: 1024 * 1024 * 10})
     .then(() => exec(stylesCmd), {maxBuffer: 1024 * 1024 * 10})
     .then(() => exec(photosCmd), {maxBuffer: 1024 * 1024 * 10})
     .then(() => fs.unlinkAsync('styles.csv'))
