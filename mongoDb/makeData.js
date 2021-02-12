@@ -139,10 +139,10 @@ const seedDb = async () => {
     await buildCollection();
     await writeData();
     exec(itemsCmd, {maxBuffer: 1024 * 1024 * 10})
-    .then(() => exec(stylesCmd), {maxBuffer: 1024 * 1024 * 10})
-    .then(() => exec(photosCmd), {maxBuffer: 1024 * 1024 * 10})
+    .then(() => exec(stylesCmd, {maxBuffer: 1024 * 1024 * 10}))
+    .then(() => exec(photosCmd, {maxBuffer: 1024 * 1024 * 10}))
     .then(() => fs.unlinkAsync('styles.csv'))
-    .then(() => fs.unlinkAsync('styles.csv'))
+    .then(() => fs.unlinkAsync('items.csv'))
     .then(() => fs.unlinkAsync('photos.csv'))
   }
 };
