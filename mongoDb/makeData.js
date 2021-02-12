@@ -110,7 +110,7 @@ const buildCollection = () => {
 };
 
 
-const writeData = new Promise(function(resolve, reject) {
+const writeData = async () => {
   console.log('inserting')
   await photoWriter.writeRecords(photosArr)
     .then(() => {
